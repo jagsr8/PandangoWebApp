@@ -25,28 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('User.db');
-
-db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='Users'",
-       function(err, rows) {
-  if(err !== null) {
-    console.log(err);
-  }
-  else if(rows === undefined) {
-    db.run("CREATE TABLE Users (_id INTEGER, user_name TEXT, password TEXT)", function(err) {
-      if(err !== null) {
-        console.log(err);
-      }
-      else {
-        console.log("SQL Table 'bookmarks' initialized.");
-      }
-    });
-  }
-  else {
-    console.log("SQL Table 'bookmarks' already initialized.");
-  }
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
