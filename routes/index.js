@@ -24,7 +24,7 @@ db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='Users'",
 });
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   //res.render('index', { title: 'Express' });
   res.json(req.body);
 });
