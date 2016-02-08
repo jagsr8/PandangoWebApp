@@ -3,7 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 
 /* GET home page. */
-router.get('/:username', function(req, res) {
+router.get('/:username/:password', function(req, res) {
   //res.render('index', { title: 'Express' });
   res.send(req.params.username);
 });
