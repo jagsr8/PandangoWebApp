@@ -21,20 +21,22 @@ db.serialize(function() {
 /* GET home page. */
 router.get('/:username/:password', function(req, res) {
   //res.render('index', { title: 'Express' });
-  username = req.params.username;
-  password = req.params.password;
-  var sqlstat = "SELECT * FROM Users WHERE username = '";
-  var sqlstat = sqlstat.concat(username, "';");
-  db.each(sqlstat, function(err, row) {
-  	if (err) {
-  		res.send('User does not exist');
-  	} else {
-  		if (row.password === password) {
-  			res.send('0');
-  		} else {
-  			res.send('Password does not match!');
-  		}
-  	}
+  db.serialize(function(){
+    username = req.params.username;
+    password = req.params.password;
+    var sqlstat = "SELECT * FROM Users WHERE username = '";
+    var sqlstat = sqlstat.concat(username, "';");
+    db.each(sqlstat, function(err, row) {
+      if (err) {
+        res.send('User does not exist');
+      } else {
+        if (row.password === password) {
+          res.send('0');
+        } else {
+          res.send('Password does not match!');
+        }
+      }
+    });
   });
 });
 
