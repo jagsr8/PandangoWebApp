@@ -42,5 +42,5 @@ router.get('/:username/:password', function(req, res) {
     });*/
 });
 
-db.close();
+//db.close();
 module.exports = router;
