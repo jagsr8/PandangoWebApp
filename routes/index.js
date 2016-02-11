@@ -23,12 +23,11 @@ router.get('/:username/:password', function(req, res) {
   //res.render('index', { title: 'Express' });
   db.serialize(function(){
     username = req.params.username;
-    res.send(username);
     password = req.params.password;
     var sqlstat = "SELECT * FROM Users WHERE username = '";
     sqlstat = sqlstat.concat(username, "';");
 
-    db.all("SELECT * FROM Users WHERE username=" + username, function(err, row){
+    db.all("SELECT * FROM Users WHERE username='" + username + "'", function(err, row){
       if (err) {
         res.send('User does not exist');
       } else {
