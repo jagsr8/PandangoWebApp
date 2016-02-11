@@ -25,7 +25,8 @@ router.get('/:username/:password', function(req, res) {
     username = req.params.username;
     password = req.params.password;
     var sqlstat = "SELECT * FROM Users WHERE username = '";
-    var sqlstat = sqlstat.concat(username, "';");
+    sqlstat = sqlstat.concat(username, "';");
+    res.send(sqlstat);
     db.each(sqlstat, function(err, row) {
       if (err) {
         res.send('User does not exist');
