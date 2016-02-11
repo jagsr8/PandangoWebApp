@@ -23,6 +23,7 @@ router.get('/:username/:password', function(req, res) {
   //res.render('index', { title: 'Express' });
   db.serialize(function(){
     username = req.params.username;
+    res.send(username);
     password = req.params.password;
     var sqlstat = "SELECT * FROM Users WHERE username = '";
     sqlstat = sqlstat.concat(username, "';");
