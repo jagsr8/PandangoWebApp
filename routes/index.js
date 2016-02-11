@@ -23,9 +23,10 @@ router.get('/:username/:password', function(req, res) {
   //res.render('index', { title: 'Express' });
     username = req.params.username;
     password = req.params.password;
-    res.send(username);
+    // res.send(username);
     db.all("SELECT * FROM Users WHERE username='ganhari123'", function(err, row){
       if (err) {
+        console.log(err);
         res.send('User does not exist');
       } else {
         if (row.password === password) {
