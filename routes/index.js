@@ -26,8 +26,8 @@ router.get('/:username/:password', function(req, res) {
     password = req.params.password;
     var sqlstat = "SELECT * FROM Users WHERE username = '";
     sqlstat = sqlstat.concat(username, "';");
-    res.send(sqlstat);
-    db.each(sqlstat, function(err, row) {
+
+    db.all("SELECT * FROM Users WHERE username=" + username, function(err, row){
       if (err) {
         res.send('User does not exist');
       } else {
@@ -38,6 +38,11 @@ router.get('/:username/:password', function(req, res) {
         }
       }
     });
+
+    /*db.each(sqlstat, function(err, row) {
+      
+    });*/
+
   });
 });
 
