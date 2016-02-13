@@ -37,7 +37,7 @@ router.get('/:username/:password', function(req, res){
     } else {
       if (rows[0].password === password) {
         console.log('password matches login successful!');
-        res.send('1');
+        res.send(username);
       } else {
         console.log('password does not match login unsuccessful');
         res.send('0');
