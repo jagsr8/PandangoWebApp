@@ -45,7 +45,7 @@ router.get('/:username/:password', function(req, res){
 });
 
 router.post('/userRegistration', function(req, res){
-  console.log(req);
+  console.log(req.body.name);
 });
 
 /*con.end(function(err) {
