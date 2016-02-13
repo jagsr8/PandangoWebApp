@@ -27,7 +27,7 @@ router.get('/:username/:password', function(req, res){
   password = req.params.password;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
-      console.log(err);
+      console.log('err = ' + err);
     } else {
       console.log(rows);
       res.send('USER DETECTED');
