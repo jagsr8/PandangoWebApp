@@ -14,6 +14,8 @@ var con = mysql.createConnection({
   database: "heroku_d5011e791776e3d"
 });
 
+
+
 con.connect(function(err){
   if(err){
     console.log('Error connecting to Db');
@@ -21,6 +23,10 @@ con.connect(function(err){
   }
   console.log('Connection established');
 });
+
+setInterval(function () {
+    con.query('SELECT 1');
+}, 5000);
 
 router.get('/:username/:password', function(req, res){
   username = req.params.username;
@@ -31,6 +37,7 @@ router.get('/:username/:password', function(req, res){
     } else {
       console.log(rows);
       res.send('USER DETECTED');
+      con.end();
     }
   });
 });
