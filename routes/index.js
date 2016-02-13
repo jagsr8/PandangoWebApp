@@ -44,13 +44,13 @@ router.get('/:username/:password', function(req, res){
   });
 });
 
-router.post('/userRegistration', function(req, res){
+router.post('/userRegistration', function(req, response){
   var newUser = {name: req.body.name, username: req.body.username, password: req.body.password};
   con.query('INSERT INTO users SET ?', newUser, function(err, res){
     if (err) {
       console.log(err);
     } else {
-      res.send('user added sucessfully!');
+      response.send('user added sucessfully!');
     }
 
   });
