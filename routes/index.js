@@ -33,6 +33,7 @@ router.get('/:username/:password', function(req, res){
       res.send('USER DETECTED');
     }
   });
+  con.end();
 });
 
 con.end(function(err) {
