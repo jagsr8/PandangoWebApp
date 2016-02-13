@@ -33,17 +33,19 @@ router.get('/:username/:password', function(req, res){
   password = req.params.password;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
-      console.log('err = ' + err);
+      res.send('0');
     } else {
       if (rows[0].password === password) {
-        console.log('password matches login successful!');
         res.send(username);
       } else {
-        console.log('password does not match login unsuccessful');
         res.send('0');
       }
     }
   });
+});
+
+router.post('/userRegistration', function(req, res){
+  console.log(req);
 });
 
 /*con.end(function(err) {
