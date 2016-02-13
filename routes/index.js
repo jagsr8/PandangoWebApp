@@ -1,46 +1,43 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var username = '';
+var password = '';
 
-var sqlite3 = require("sqlite3").verbose();
-var db = new sqlite3.Database('User.db');
+var mysql = require("mysql");
 
-var username = "";
-var password = "";
-
-db.serialize(function() {
-  console.log('creating table');
-  db.run("CREATE TABLE if not exists Users (_id INTEGER, username TEXT, password TEXT)");
-  console.log('table created');
-  //var entry1 = db.prepare();
-  //var entry2 = db.prepare("INSERT INTO Users (_id, username, password) VALUES (0, 'jagsr', 'password');");
-  db.run("INSERT INTO Users VALUES(?, ?, ?)", (0, 'ganhari123', 'password'));
+// First you need to create a connection to the db
+var con = mysql.createConnection({
+  host: "us-cdbr-iron-east-03.cleardb.net",
+  user: "b8c1a58913c797",
+  password: "05ec03a0"
+  database: "heroku_d5011e791776e3d"
 });
 
-
-/* GET home page. */
-router.get('/:username/:password', function(req, res) {
-  //res.render('index', { title: 'Express' });
-    username = req.params.username;
-    password = req.params.password;
-    // res.send(username);
-    db.all("SELECT * FROM Users WHERE username='ganhari123'", function(err, row){
-      if (err) {
-        console.log(err);
-        res.send('User does not exist');
-      } else {
-        if (row.password === password) {
-          res.send('0');
-        } else {
-          res.send('Password does not match!');
-        }
-      }
-    });
-
-    /*db.each(sqlstat, function(err, row) {
-      
-    });*/
+con.connect(function(err){
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
 });
 
-//db.close();
+router.get('/:username/:password', function(req, res){
+  username = req.params.username;
+  password = req.params.password;
+  con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(rows);
+      res.send('USER DETECTED');
+    }
+  });
+});
+
+con.end(function(err) {
+  // The connection is terminated gracefully
+  // Ensures all previously enqueued queries are still
+  // before sending a COM_QUIT packet to the MySQL server.
+});
 module.exports = router;
