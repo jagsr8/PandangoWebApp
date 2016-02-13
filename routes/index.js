@@ -33,12 +33,11 @@ router.get('/:username/:password', function(req, res){
       res.send('USER DETECTED');
     }
   });
-  con.end();
 });
 
-con.end(function(err) {
+/*con.end(function(err) {
   // The connection is terminated gracefully
   // Ensures all previously enqueued queries are still
   // before sending a COM_QUIT packet to the MySQL server.
-});
+});*/
 module.exports = router;
