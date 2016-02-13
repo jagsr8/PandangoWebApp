@@ -37,7 +37,6 @@ router.get('/:username/:password', function(req, res){
     } else {
       console.log(rows);
       res.send('USER DETECTED');
-      con.end();
     }
   });
 });
