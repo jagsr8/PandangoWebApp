@@ -50,6 +50,7 @@ router.post('/userRegistration', function(req, response){
     if (err) {
       console.log(err);
     } else {
+      console.log(res.insertID);
       response.send('user added sucessfully!');
     }
 
