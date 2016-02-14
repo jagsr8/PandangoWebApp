@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var username = '';
-var password = '';
 
 var mysql = require("mysql");
 
@@ -29,8 +27,8 @@ setInterval(function () {
 }, 5000);
 
 router.get('/:username/:password', function(req, res){
-  username = req.params.username;
-  password = req.params.password;
+  var username = req.params.username;
+  var password = req.params.password;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
       res.send('0');
@@ -65,6 +63,21 @@ router.post('/userRegistration', function(req, response){
           }
       }
   });
+});
+
+router.post('/editProfile/:username/:password', function(req, res){
+  var username = req.params.username;
+  var password = req.params.password;
+  con.query('UPDATE users SET password = ? Where username = ?', [password, username],function (err, result) {
+    if (err){
+      console.log(err); 
+      throw err;
+    } else {
+      console.log('Changed password!!');
+      res.send('Changed Password Sucessfully!');
+    }
+  }
+);
 });
 
 /*con.end(function(err) {
