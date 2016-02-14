@@ -48,7 +48,10 @@ router.post('/userRegistration', function(req, response){
   console.log(req.body.username);
   con.query('SELECT * FROM users WHERE username = ?', req.body.username, function(err, rows){
       if (err) {
-            var newUser = {id: req.body.id, name: req.body.name, username: req.body.username, password: req.body.password};
+           console.log(err); 
+      } else {
+        if (rows.length === 0) {
+          var newUser = {id: req.body.id, name: req.body.name, username: req.body.username, password: req.body.password};
             con.query('INSERT INTO users SET ?', newUser, function(err, res){
                 if (err) {
                   console.log(err);
@@ -57,9 +60,9 @@ router.post('/userRegistration', function(req, response){
                 }
 
             });
-      } else {
-        console.log(rows);
-        response.send('User already added');
+          } else {
+            response.send('User already added');
+          }
       }
   });
 });
