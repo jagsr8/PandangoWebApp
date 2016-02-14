@@ -45,6 +45,7 @@ router.get('/:username/:password', function(req, res){
 });
 
 router.post('/userRegistration', function(req, response){
+  console.log(req.body.username);
   con.query('SELECT * FROM users WHERE username = ?', req.body.username, function(err, rows){
       if (err) {
             var newUser = {id: req.body.id, name: req.body.name, username: req.body.username, password: req.body.password};
