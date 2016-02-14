@@ -58,6 +58,7 @@ router.post('/userRegistration', function(req, response){
 
             });
       } else {
+        console.log(rows);
         response.send('User already added');
       }
   });
