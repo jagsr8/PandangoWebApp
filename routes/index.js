@@ -55,7 +55,7 @@ router.get('/:username/:password', function(req, res){
   });
 });
 
-router.get('/changeLoginStatus/:username', function(req, res){
+router.post('/changeLoginStatus/:username', function(req, res){
 	var username = req.params.username;
 	con.query('UPDATE users SET loginStatus = ? Where username = ?', [0, username], function(err, result){
 		if (err) {
