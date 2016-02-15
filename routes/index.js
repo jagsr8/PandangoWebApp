@@ -55,6 +55,17 @@ router.get('/:username/:password', function(req, res){
   });
 });
 
+router.get('/changeLoginStatus/:username', function(req, res){
+	var username = req.params.username;
+	con.query('UPDATE users SET loginStatus = ? Where username = ?', [0, username], function(err, result){
+		if (err) {
+			console.log(err);
+		} else {
+			res.send('User successfully Logged out!');
+		}
+	});
+});
+
 router.post('/userRegistration', function(req, response){
   console.log(req.body.username);
   con.query('SELECT * FROM users WHERE username = ?', req.body.username, function(err, rows){
