@@ -36,10 +36,20 @@ router.get('/:username/:password', function(req, res){
       res.send('0');
     } else {
       console.log(rows);
-      if (rows[0].password === password) {
-        res.send(username);
+      if (rows.length === 0) {
+      	res.send('0');
       } else {
-        res.send('0');
+      	if (rows[0].password === password) {
+      		con.query('UPDATE users SET loginStatus = ? Where username = ?', [1, username], function(err, result) {
+      			if (err) {
+      				console.print(err);
+      			} else {
+      				res.send(username);
+      			}
+      		});
+      	} else {
+        	res.send('0');
+      	}
       }
     }
   });
