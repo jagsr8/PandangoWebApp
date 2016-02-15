@@ -98,7 +98,7 @@ router.post('/editProfile/:username/:password', function(req, res){
       console.log(err); 
       throw err;
     } else {
-      console.log('Changed password!!');
+      console.log(req.body.bio + req.body.major);
       res.send('Changed Password Sucessfully!');
     }
   }
