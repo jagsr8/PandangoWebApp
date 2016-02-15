@@ -73,7 +73,7 @@ router.post('/userRegistration', function(req, response){
            console.log(err); 
       } else {
         if (rows.length === 0) {
-          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password};
+          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, Major: '', Bio: ''};
             con.query('INSERT INTO users SET ?', newUser, function(err, res){
                 if (err) {
                   console.log(err);
@@ -93,7 +93,7 @@ router.post('/userRegistration', function(req, response){
 router.post('/editProfile/:username/:password', function(req, res){
   var username = req.params.username;
   var password = req.params.password;
-  con.query('UPDATE users SET password = ? Where username = ?', [password, username],function (err, result) {
+  con.query('UPDATE users SET password = ?, Major = ?, Bio = ? Where username = ?', [password, req.body.major, req.body.bio, req.body.username], function (err, result) {
     if (err){
       console.log(err); 
       throw err;
