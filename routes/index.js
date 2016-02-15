@@ -93,7 +93,7 @@ router.post('/userRegistration', function(req, response){
 router.post('/editProfile/:username/:password', function(req, res){
   var username = req.params.username;
   var password = req.params.password;
-  con.query('UPDATE users SET password = ?, Major = ?, Bio = ? Where username = ?', [password, req.body.major, req.body.bio, req.body.username], function (err, result) {
+  con.query('UPDATE users SET password = ?, Major = ?, Bio = ? Where username = ?', [password, req.body.major, req.body.bio, username], function (err, result) {
     if (err){
       console.log(err); 
       throw err;
