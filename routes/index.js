@@ -36,11 +36,11 @@ router.get('/:username/:password', function(req, res){
       res.send('0');
     } else {
       console.log(rows);
-      if (rows[0].password === password) {
+      /*if (rows[0].password === password) {
         res.send(username);
       } else {
         res.send('0');
-      }
+      }*/
     }
   });
 });
