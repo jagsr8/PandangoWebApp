@@ -35,6 +35,7 @@ router.get('/:username/:password', function(req, res){
     if (err) {
       res.send('0');
     } else {
+      console.log(rows);
       if (rows[0].password === password) {
         res.send(username);
       } else {
