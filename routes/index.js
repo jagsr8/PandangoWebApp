@@ -15,7 +15,10 @@ var con = mysql.createConnection({
 });
 
 
-
+/**
+ *Code to make the connection to the database
+ *
+ **/
 con.connect(function(err){
   if(err){
     console.log('Error connecting to Db');
@@ -24,10 +27,20 @@ con.connect(function(err){
   console.log('Connection established');
 });
 
+
+/**
+ *Code to Ping the database and keep connection awake
+ *
+ **/
 setInterval(function () {
     con.query('SELECT 1');
 }, 5000);
 
+
+/**
+ * A route to check and log a user in and change login status
+ *
+ **/
 router.get('/:username/:password', function(req, res){
   var username = req.params.username;
   var password = req.params.password;
@@ -55,6 +68,11 @@ router.get('/:username/:password', function(req, res){
   });
 });
 
+
+/**
+ * A route to change the login status back after user logs out
+ *
+ **/
 router.post('/changeLoginStatus/:username', function(req, res){
 	var username = req.params.username;
 	con.query('UPDATE users SET loginStatus = ? Where username = ?', [0, username], function(err, result){
@@ -66,6 +84,11 @@ router.post('/changeLoginStatus/:username', function(req, res){
 	});
 });
 
+
+/**
+ * A route to Register a user if the username does not exist already
+ *
+ **/
 router.post('/userRegistration', function(req, response){
   console.log(req.body.username);
   con.query('SELECT * FROM users WHERE username = ?', req.body.username, function(err, rows){
@@ -90,6 +113,11 @@ router.post('/userRegistration', function(req, response){
   });
 });
 
+
+/**
+ * A route to change the profile that is password, Major and Bio
+ *
+ **/
 router.post('/editProfile/:username/:password', function(req, res){
   var username = req.params.username;
   var password = req.params.password;
