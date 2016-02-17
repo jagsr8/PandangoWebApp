@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pandango | Movie Ratings & Recommendations</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/forms.css' />
+  </head>
+  <body>
+	<section id="jumbotron">
+	    <div id="cliffhanger">
+	    	<img src="http://static.tumblr.com/d9926911eb066b6d5181c2f64fa72f6f/z3pnymn/ogwmmueoe/tumblr_static_g_panda_circle.png" />
+	    	<p>Pandango</p>
+	    </div>
+	    <div id="carousel_container">
+	    	<div id="carousel_item" style="background-image: radial-gradient(rgba(0,0,0,0) 30%, rgba(0,0,0,1) 70%), url('http://www.utahmoviereview.com/wp-content/uploads/2014/06/empty_theater.jpg');">
+		    	<div id="carousel_text">
+			    	<h3>Rate your favorite movies</h3>
+		    		<p>With our intuitive interface and 5-star rating system, you will be able to rate like never before.</p>
+		    	</div>
+		    </div>
+	    </div>
+	    <a href="#login"><img src="http://nlitenmusic.neocities.org/nliten-music/images/white-arrow-down.png" /></a>
+	</section>
+	<section id="login">
+		<div id="login_container">
+			<ul id="login_tabs">
+				<li class="active">Sign In</li>
+				<li>Register</li>
+			</ul>
+			<form id="login_form">
+				<p>Please enter the following information to login to your account.</p>
+				<input type="text" name="username" value="" placeholder="Username">
+				<input type="password" name="password" value="" placeholder="Password">
+				<span class="button" onclick="process_login()">Sign In</span>
+			</form>
+			<form id="signup_form" style="display: none;">
+				
+			</form>
+		</div>
+	</section>
+  </body>
+</html>

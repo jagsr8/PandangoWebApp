@@ -37,6 +37,11 @@ setInterval(function () {
 }, 5000);
 
 
+router.get('/', function(req, res) {
+  res.render('splash')
+});
+
+
 /**
  * A route to check and log a user in and change login status
  *
@@ -97,18 +102,18 @@ router.post('/userRegistration', function(req, response){
       } else {
         if (rows.length === 0) {
           var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, Major: '', Bio: ''};
-            con.query('INSERT INTO users SET ?', newUser, function(err, res){
-                if (err) {
-                  console.log(err);
-                } else {
+          con.query('INSERT INTO users SET ?', newUser, function(err, res){
+            if (err) {
+              console.log(err);
+            } else {
 
-                  response.send('user added sucessfully!');
-                }
+              response.send('user added sucessfully!');
+            }
 
-            });
-          } else {
-            response.send('User already added');
-          }
+          });
+        } else {
+          response.send('User already added');
+        }
       }
   });
 });
