@@ -101,7 +101,7 @@ router.post('/userRegistration', function(req, response){
            console.log(err); 
       } else {
         if (rows.length === 0) {
-          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, Major: '', Bio: ''};
+          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, major: '', bio: ''};
           con.query('INSERT INTO users SET ?', newUser, function(err, res){
             if (err) {
               console.log(err);
