@@ -138,44 +138,6 @@ router.post('/editProfile/:username/:password', function(req, res){
 );
 });
 
-router.get('/editProfile/getProfileName/:username', function(req, res){
-	var username = req.params.username;
-	con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
-		if (err) {
-			console.log(err);
-		} else {
-
-			res.send(rows[0].name);
-		}
-	});
-
-});
-
-router.get('/editProfile/getProfileMajor/:username', function(req, res){
-	var username = req.params.username;
-	con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
-		if (err) {
-			console.log(err);
-		} else {
-			res.send(rows[0].major);
-		}
-	});
-
-});
-
-router.get('/editProfile/getProfileBio/:username', function(req, res){
-	var username = req.params.username;
-	con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(rows[0].bio);
-			res.send(rows[0].bio);
-		}
-	});
-
-});
-
 /*con.end(function(err) {
   // The connection is terminated gracefully
   // Ensures all previously enqueued queries are still
