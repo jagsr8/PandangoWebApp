@@ -147,7 +147,7 @@ router.get('/editProfile/getProfileName/:username', function(req, res){
 
 			res.send(rows[0].name);
 		}
-	}
+	});
 
 });
 
@@ -159,7 +159,7 @@ router.get('/editProfile/getProfileMajor/:username', function(req, res){
 		} else {
 			res.send(rows[0].major);
 		}
-	}
+	});
 
 });
 
@@ -172,7 +172,7 @@ router.get('/editProfile/getProfileBio/:username', function(req, res){
 			console.log(rows[0].bio);
 			res.send(rows[0].bio);
 		}
-	}
+	});
 
 });
 
