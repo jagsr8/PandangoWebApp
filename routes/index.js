@@ -73,6 +73,19 @@ router.get('/:username/:password', function(req, res){
   });
 });
 
+router.get('/getUserProfile/:username', function(req, res) {
+  var username = req.params.username;
+  con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
+    if (err) {
+      console.log(err);
+      res.send('0');
+    } else {
+      res.send(rows);
+    }
+  });
+
+});
+
 
 /**
  * A route to change the login status back after user logs out
