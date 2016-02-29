@@ -77,10 +77,10 @@ router.get('/getUserProfile/:username', function(req, res) {
   var username = req.params.username;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
-      console.log("IN HERE");
       res.send('0');
     } else {
-      res.send(rows);
+      console.log(rows);
+      //res.send(rows);
     }
   });
 
