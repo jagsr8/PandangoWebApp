@@ -74,7 +74,7 @@ router.get('/:username/:password', function(req, res){
 });
 
 router.get('/userProf/:un', function(req, res) {
-  res.send(req.params.un);
+  console.log(req.params.un);
   /*con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
       res.send('HELLO I AM ERRORING');
