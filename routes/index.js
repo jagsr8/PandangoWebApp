@@ -79,7 +79,7 @@ router.get('/getUserProfile/:username', function(req, res) {
     if (err) {
       res.send('0');
     } else {
-      console.log(rows);
+      console.log("IN HERE");
       //res.send(rows);
     }
   });
