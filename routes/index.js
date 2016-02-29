@@ -82,7 +82,6 @@ router.get('/getUserProfile/:username', function(req, res) {
     } else {
       console.log("IN HERE");
       res.send("BYE I AM NOT ERRORING");
-      //res.send(rows);
     }
   });
 
