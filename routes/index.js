@@ -73,36 +73,6 @@ router.get('/:username/:password', function(req, res){
   });
 });
 
-router.get('/userProf/:un', function(req, res) {
-  console.log(req.params.un);
-  /*con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
-    if (err) {
-      res.send('HELLO I AM ERRORING');
-    } else {
-      console.log("IN HERE");
-      res.send("BYE I AM NOT ERRORING SUCKER");
-    }
-  });*/
-
-});
-
-
-/**
- * A route to change the login status back after user logs out
- *
- **/
-router.post('/changeLoginStatus/:username', function(req, res){
-	var username = req.params.username;
-	con.query('UPDATE users SET loginStatus = ? Where username = ?', [0, username], function(err, result){
-		if (err) {
-			console.log(err);
-		} else {
-			res.send('User successfully Logged out!');
-		}
-	});
-});
-
-
 /**
  * A route to Register a user if the username does not exist already
  *
@@ -149,6 +119,35 @@ router.post('/editProfile/:username/:password', function(req, res){
     }
   }
 );
+});
+
+router.get('/userProf/:un', function(req, res) {
+  console.log(req.params.un);
+  /*con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
+    if (err) {
+      res.send('HELLO I AM ERRORING');
+    } else {
+      console.log("IN HERE");
+      res.send("BYE I AM NOT ERRORING SUCKER");
+    }
+  });*/
+
+});
+
+
+/**
+ * A route to change the login status back after user logs out
+ *
+ **/
+router.post('/changeLoginStatus/:username', function(req, res){
+  var username = req.params.username;
+  con.query('UPDATE users SET loginStatus = ? Where username = ?', [0, username], function(err, result){
+    if (err) {
+      console.log(err);
+    } else {
+      res.send('User successfully Logged out!');
+    }
+  });
 });
 
 /*con.end(function(err) {
