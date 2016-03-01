@@ -123,7 +123,7 @@ router.post('/editProfile/:username/:password', function(req, res){
 
 router.get('/userProf/:un', function(req, res) {
   console.log('Hey!');
-  console.log(req.params.un);
+  var username = req.params.un;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
       res.send('HELLO I AM ERRORING');
