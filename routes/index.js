@@ -110,18 +110,19 @@ router.post('/editProfile/:username/:password', function(req, res){
   var username = req.params.username;
   var password = req.params.password;
   con.query('UPDATE users SET password = ?, Major = ?, Bio = ? Where username = ?', [password, req.body.major, req.body.bio, username], function (err, result) {
-    if (err){
-      console.log(err); 
-      throw err;
-    } else {
-      console.log(req.body.bio + req.body.major);
-      res.send('Changed Password Sucessfully!');
+        if (err){
+          console.log(err); 
+          throw err;
+        } else {
+          console.log(req.body.bio + req.body.major);
+          res.send('Changed Password Sucessfully!');
+        }
     }
-  }
-);
+  );
 });
 
 router.get('/userProf/:un', function(req, res) {
+  console.log('Hey!');
   console.log(req.params.un);
   /*con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
