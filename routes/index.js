@@ -46,7 +46,7 @@ router.get('/', function(req, res) {
  * A route to check and log a user in and change login status
  *
  **/
-router.get('getLoginStatus/:username/:password', function(req, res){
+router.get('/getLoginStatus/:username/:password', function(req, res){
   var username = req.params.username;
   var password = req.params.password;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
