@@ -121,7 +121,7 @@ router.post('/editProfile/:username/:password', function(req, res){
   );
 });
 
-router.get('/userProf/:un', function(req, res) {
+router.get('/showProfile/:un', function(req, res) {
   console.log('Hey!');
   var username = req.params.un;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
