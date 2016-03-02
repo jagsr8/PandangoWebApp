@@ -101,6 +101,17 @@ router.post('/userRegistration', function(req, response){
   });
 });
 
+router.post('/addRating', function(req, response) {
+    var newRating = {username: req.body.username, moviename: req.body.moviename, rating: req.body.rating};
+    con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
+        if (err) {
+          console.log(err);
+        } else {
+          res.send('Movie Rating added');
+        }
+    });
+});
+
 
 /**
  * A route to change the profile that is password, Major and Bio
