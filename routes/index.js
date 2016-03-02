@@ -107,7 +107,7 @@ router.post('/addRating', function(req, response) {
         if (err) {
           console.log(err);
         } else {
-          res.send('Movie Rating added');
+          response.send('Movie Rating added');
         }
     });
 });
