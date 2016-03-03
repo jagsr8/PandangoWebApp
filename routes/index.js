@@ -112,19 +112,6 @@ router.post('/addRating', function(req, response) {
     });
 });
 
-router.post('/dispRecentRated/:username', function(req, response){
-      var username = req.params.username;
-      console.log(username);
-      con.query('SELECT * FROM personmovierate WHERE username = ?', username, function(err, rows){
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(rows);
-            response.send(rows);
-          }
-      });
-});
-
 
 /**
  * A route to change the profile that is password, Major and Bio
@@ -173,6 +160,19 @@ router.post('/changeLoginStatus/:username', function(req, res){
       res.send('User successfully Logged out!');
     }
   });
+});
+
+router.post('/dispRecentRated/:username', function(req, response){
+      var username = req.params.username;
+      console.log(username);
+      con.query('SELECT * FROM personmovierate WHERE username = ?', username, function(err, rows){
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(rows);
+            response.send(rows);
+          }
+      });
 });
 
 /*con.end(function(err) {
