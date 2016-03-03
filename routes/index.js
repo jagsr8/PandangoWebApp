@@ -114,6 +114,7 @@ router.post('/addRating', function(req, response) {
 
 router.post('/dispRecentRated/:username', function(req, response){
       var username = req.params.username;
+      console.log(username);
       con.query('SELECT * FROM personmovierate WHERE username = ?', username, function(err, rows){
           if (err) {
             console.log(err);
