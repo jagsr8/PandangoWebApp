@@ -118,6 +118,7 @@ router.post('/dispRecentRated/:username', function(req, response){
           if (err) {
             console.log(err);
           } else {
+            console.log(rows);
             response.send(rows);
           }
       });
