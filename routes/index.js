@@ -162,7 +162,7 @@ router.post('/changeLoginStatus/:username', function(req, res){
   });
 });
 
-router.post('/dispRecentRated/:username', function(req, response){
+router.get('/dispRecentRated/:username', function(req, response){
       var username = req.params.username;
       console.log(username);
       con.query('SELECT * FROM personmovierate WHERE username = ?', username, function(err, rows){
