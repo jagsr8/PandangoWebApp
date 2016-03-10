@@ -153,6 +153,7 @@ router.post('/getCurrRating', function(req, res){
 router.post('/updateAverage', function(req, response) {
 	var movieName = req.body.moviename;
 	var rat = req.body.rating;
+	var currNumOfRates = req.body.numOfRates;
     var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
     console.log(sql);
     con.query(sql, function(err, rows){
