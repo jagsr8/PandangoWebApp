@@ -171,7 +171,7 @@ router.post('/updateAverage', function(req, response) {
     		} else {
     			
     			var sql2 = "UPDATE movieaveragerating SET rating = '" 
-    						+ newRating 
+    						+ rat 
     						+ "', num_of_ratings = '" 
     						+ currNumOfRates 
     						+ "' WHERE movie_name = '" 
