@@ -103,15 +103,15 @@ router.post('/userRegistration', function(req, response){
 
 router.post('/addRating', function(req, response) {
     var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating};
-    console.log('DEBUG!');
+   
     var sql = "SELECT * FROM personmovierate WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
-    console.log(sql);
+    
     con.query(sql, function(err, rows){
     	if (err) {
     		
     		console.log(err);
     	} else {
-    		console.log('ERRR');
+    		
     		if (rows.length === 0) {
     			con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
 			        if (err) {
@@ -134,6 +134,47 @@ router.post('/addRating', function(req, response) {
     });
 });
 
+router.post('/addRating/:moviename/:rating', function(req, response) {
+	var movieName = req.params.moviename;
+	var rat = req.params.rating;
+    var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+    con.query(sql, function(err, rows){
+    	if (err) {
+    		console.log(err);
+    	} else {
+    		if (rows.length === 0) {
+    			var newMovieAverage = {movie_name: movieName, rating: rat, num_of_ratings: 1};
+    			con.query('INSERT INTO personmovierate SET ?', newMovieAverage, function(err, res){
+			        if (err) {
+			          console.log(err);
+			        } else {
+			     	  response.send('Movie rating added!');
+			        }
+			    });
+    		} else {
+    			var currRating = rows[0].rating;
+    			var currNumOfRates = rows[0].num_of_ratings;
+    			var tempSum = currRating * currNumOfRates;
+    			var newRating = (tempSum + rat) / (currNumOfRates + 1);
+    			currNumOfRates = currNumOfRates + 1;
+    			var sql2 = "UPDATE movieaveragerating SET rating = '" 
+    						+ newRating 
+    						+ "', num_of_ratings = '" 
+    						+ currNumOfRates 
+    						+ "' WHERE moviename = '" 
+    						+ movieName 
+    						+ "'";
+    			con.query(sql2, function(err, res){
+    				if (err) {
+			          console.log(err);
+			        } else {
+			          response.send('Movie rating updated!');
+			        }
+    			});
+    		}
+    	}
+    });
+});
 
 /**
  * A route to change the profile that is password, Major and Bio
