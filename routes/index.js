@@ -117,7 +117,7 @@ router.post('/addRating', function(req, response) {
 			        if (err) {
 			          console.log(err);
 			        } else {
-			     	  res.send('Movie rating added!');
+			     	  response.send('Movie rating added!');
 			        }
 			    });
     		} else {
@@ -126,7 +126,7 @@ router.post('/addRating', function(req, response) {
     				if (err) {
 			          console.log(err);
 			        } else {
-			          res.send('Movie rating updated!');
+			          response.send('Movie rating updated!');
 			        }
     			});
     		}
