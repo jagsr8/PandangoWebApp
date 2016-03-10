@@ -154,9 +154,13 @@ router.post('/updateAverage', function(req, response) {
 			    });
     		} else {
     			var currRating = rows[0].rating;
+    			console.log(currRating);
     			var currNumOfRates = rows[0].num_of_ratings;
+    			console.log(currNumOfRates);
     			var tempSum = currRating * currNumOfRates;
+    			console.log(tempSum);
     			var newRating = (tempSum + rat) / (currNumOfRates + 1);
+    			console.log(newRating);
     			currNumOfRates = currNumOfRates + 1;
     			var sql2 = "UPDATE movieaveragerating SET rating = '" 
     						+ newRating 
