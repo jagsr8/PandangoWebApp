@@ -145,7 +145,7 @@ router.post('/updateAverage', function(req, response) {
     	} else {
     		if (rows.length === 0) {
     			var newMovieAverage = {movie_name: movieName, rating: rat, num_of_ratings: 1};
-    			con.query('INSERT INTO personmovierate SET ?', newMovieAverage, function(err, res){
+    			con.query('INSERT INTO movieaveragerating SET ?', newMovieAverage, function(err, res){
 			        if (err) {
 			          console.log(err);
 			        } else {
