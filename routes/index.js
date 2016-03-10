@@ -134,7 +134,7 @@ router.post('/addRating', function(req, response) {
     });
 });
 
-router.get('/updateAverage/:moviename/:rating', function(req, response) {
+router.post('/updateAverage', function(req, response) {
 	var movieName = req.params.moviename;
 	var rat = req.params.rating;
     var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
