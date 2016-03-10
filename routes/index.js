@@ -160,9 +160,11 @@ router.post('/updateAverage', function(req, response) {
     			console.log(currNumOfRates);
     			var tempSum = currRating * currNumOfRates;
     			console.log(tempSum);
-    			var newRating = (tempSum + rat) / (currNumOfRates + 1);
+    			var newRating = tempSum + rat;
     			console.log(newRating);
     			currNumOfRates = currNumOfRates + 1;
+    			newRating = newRating / currNumOfRates;
+    			console.log(newRating);
     			var sql2 = "UPDATE movieaveragerating SET rating = '" 
     						+ newRating 
     						+ "', num_of_ratings = '" 
