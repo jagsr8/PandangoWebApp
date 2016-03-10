@@ -110,7 +110,7 @@ router.post('/addRating', function(req, response) {
     		console.log(err);
     	} else {
     		console.log('ERRR');
-    		if (rows.length === 0) {
+    		/*if (rows.length === 0) {
     			con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
 			        if (err) {
 			          console.log(err);
@@ -126,7 +126,7 @@ router.post('/addRating', function(req, response) {
 			          res.send('Movie rating updated!');
 			        }
     			});
-    		}
+    		}*/
     	}
     });
 });
