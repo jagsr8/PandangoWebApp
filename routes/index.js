@@ -138,6 +138,7 @@ router.post('/addRating/:moviename/:rating', function(req, response) {
 	var movieName = req.params.moviename;
 	var rat = req.params.rating;
     var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+    console.log(sql);
     con.query(sql, function(err, rows){
     	if (err) {
     		console.log(err);
