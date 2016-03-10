@@ -134,6 +134,22 @@ router.post('/addRating', function(req, response) {
     });
 });
 
+router.post('/getCurrRating', function(req, res){
+	var movieName = req.body.moviename;
+	var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+	con.query(sql, function(err, rows){
+    	if (err) {
+    		console.log(err);
+    	} else {
+    		if (rows.length === 0) {
+    			
+    		} else {
+    			res.send(rows);
+    		}
+    	}
+    });
+});
+
 router.post('/updateAverage', function(req, response) {
 	var movieName = req.body.moviename;
 	var rat = req.body.rating;
@@ -153,18 +169,7 @@ router.post('/updateAverage', function(req, response) {
 			        }
 			    });
     		} else {
-    			console.log(rat);
-    			var currRating = rows[0].rating;
-    			console.log(currRating);
-    			var currNumOfRates = rows[0].num_of_ratings;
-    			console.log(currNumOfRates);
-    			var tempSum = currRating * currNumOfRates;
-    			console.log(tempSum);
-    			var newRating = tempSum + rat;
-    			console.log(newRating);
-    			currNumOfRates = currNumOfRates + 1;
-    			newRating = newRating / currNumOfRates;
-    			console.log(newRating);
+    			
     			var sql2 = "UPDATE movieaveragerating SET rating = '" 
     						+ newRating 
     						+ "', num_of_ratings = '" 
