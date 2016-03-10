@@ -103,12 +103,28 @@ router.post('/userRegistration', function(req, response){
 
 router.post('/addRating', function(req, response) {
     var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating};
-    con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
-        if (err) {
-          console.log(err);
-        } else {
-          response.send('Movie Rating added');
-        }
+    con.query('SELECT * FROM personmovierate WHERE username = ? AND moviename = ?', newRating.username, newRating.movie_name, function(err, rows){
+    	if (err) {
+    		console.log(err);
+    	} else {
+    		if (rows.length === 0) {
+    			con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
+			        if (err) {
+			          console.log(err);
+			        } else {
+			     	  res.send('Movie rating added!');
+			        }
+			    });
+    		} else {
+    			con.query('UPDATE personmovierate SET rating = ? WHERE username = ? AND moviename = ?', newRating.rating, newRating.username, newRating.movie_name, function(err, res){
+    				if (err) {
+			          console.log(err);
+			        } else {
+			          res.send('Movie rating updated!');
+			        }
+    			});
+    		}
+    	}
     });
 });
 
