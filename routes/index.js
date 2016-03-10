@@ -112,7 +112,7 @@ router.post('/addRating', function(req, response) {
     		console.log(err);
     	} else {
     		console.log('ERRR');
-    		/*if (rows.length === 0) {
+    		if (rows.length === 0) {
     			con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
 			        if (err) {
 			          console.log(err);
@@ -121,14 +121,15 @@ router.post('/addRating', function(req, response) {
 			        }
 			    });
     		} else {
-    			con.query('UPDATE personmovierate SET rating = ? Where username = ? AND movie_name = ?', newRating.rating, newRating.username, newRating.movie_name, function(err, res){
+    			var sql2 = "UPDATE personmovierate SET rating = '" + newRating.rating + "' WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
+    			con.query(sql2, function(err, res){
     				if (err) {
 			          console.log(err);
 			        } else {
 			          res.send('Movie rating updated!');
 			        }
     			});
-    		}*/
+    		}
     	}
     });
 });
