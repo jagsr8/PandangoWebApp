@@ -104,7 +104,7 @@ router.post('/userRegistration', function(req, response){
 router.post('/addRating', function(req, response) {
     var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating};
     console.log('DEBUG!');
-    con.query('SELECT * FROM personmovierate WHERE username = ? AND movie_name = ?', newRating.username, newRating.movie_name, function(err, rows){
+    con.query('SELECT * FROM personmovierate WHERE username = ?', newRating.username, function(err, rows){
     	if (err) {
     		
     		console.log(err);
