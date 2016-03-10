@@ -104,7 +104,7 @@ router.post('/userRegistration', function(req, response){
 router.post('/addRating', function(req, response) {
     var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating};
     console.log('DEBUG!');
-    con.query('SELECT * FROM personmovierate WHERE (username = ?) AND (moviename = ?)', newRating.username, newRating.movie_name, function(err, rows){
+    con.query('SELECT * FROM personmovierate WHERE (username = ?) AND (movie_name = ?)', newRating.username, newRating.movie_name, function(err, rows){
     	if (err) {
     		console.log('ERRR');
     		console.log(err);
@@ -118,7 +118,7 @@ router.post('/addRating', function(req, response) {
 			        }
 			    });
     		} else {
-    			con.query('UPDATE personmovierate SET rating = ? Where username = ? AND moviename = ?', newRating.rating, newRating.username, newRating.movie_name, function(err, res){
+    			con.query('UPDATE personmovierate SET rating = ? Where username = ? AND movie_name = ?', newRating.rating, newRating.username, newRating.movie_name, function(err, res){
     				if (err) {
 			          console.log(err);
 			        } else {
