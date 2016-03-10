@@ -106,9 +106,10 @@ router.post('/addRating', function(req, response) {
     console.log('DEBUG!');
     con.query('SELECT * FROM personmovierate WHERE (username = ?) AND (movie_name = ?)', newRating.username, newRating.movie_name, function(err, rows){
     	if (err) {
-    		console.log('ERRR');
+    		
     		console.log(err);
     	} else {
+    		console.log('ERRR');
     		if (rows.length === 0) {
     			con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
 			        if (err) {
