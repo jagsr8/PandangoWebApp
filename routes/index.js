@@ -106,6 +106,7 @@ router.post('/addRating', function(req, response) {
     console.log('DEBUG!');
     con.query('SELECT * FROM personmovierate WHERE username = ? AND moviename = ?', newRating.username, newRating.movie_name, function(err, rows){
     	if (err) {
+    		console.log('ERRR');
     		console.log(err);
     	} else {
     		if (rows.length === 0) {
