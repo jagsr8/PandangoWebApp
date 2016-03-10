@@ -153,6 +153,7 @@ router.post('/updateAverage', function(req, response) {
 			        }
 			    });
     		} else {
+    			console.log(rat);
     			var currRating = rows[0].rating;
     			console.log(currRating);
     			var currNumOfRates = rows[0].num_of_ratings;
