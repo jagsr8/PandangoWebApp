@@ -162,7 +162,7 @@ router.post('/updateAverage', function(req, response) {
     						+ newRating 
     						+ "', num_of_ratings = '" 
     						+ currNumOfRates 
-    						+ "' WHERE moviename = '" 
+    						+ "' WHERE movie_name = '" 
     						+ movieName 
     						+ "'";
     			con.query(sql2, function(err, res){
