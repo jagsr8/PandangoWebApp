@@ -136,7 +136,7 @@ router.post('/addRating', function(req, response) {
 
 router.post('/getCurrRating', function(req, res){
 	var movieName = req.body.moviename;
-	console.log(movieName);
+	res.send(movieName);
 	/*var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
 	con.query(sql, function(err, rows){
     	if (err) {
