@@ -58,11 +58,12 @@ router.get('/getLoginStatus/:username/:password', function(req, res){
       	res.send('0');
       } else {
       	if (rows[0].password === password) {
+      		var major = rows[0].major;
       		con.query('UPDATE users SET loginStatus = ? Where username = ?', [1, username], function(err, result) {
       			if (err) {
       				console.print(err);
       			} else {
-      				res.send(username);
+      				res.send(major);
       			}
       		});
       	} else {
@@ -102,7 +103,7 @@ router.post('/userRegistration', function(req, response){
 });
 
 router.post('/addRating', function(req, response) {
-    var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating};
+    var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating, major: req.body.major};
    
     var sql = "SELECT * FROM personmovierate WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
     
