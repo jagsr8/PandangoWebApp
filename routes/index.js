@@ -136,19 +136,22 @@ router.post('/addRating', function(req, response) {
 
 router.post('/getCurrRating', function(req, res){
 	var movieName = req.body.moviename;
-	res.send(movieName);
-	/*var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+	
+	var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+	console.log(sql);
 	con.query(sql, function(err, rows){
     	if (err) {
     		console.log(err);
     	} else {
+    		console.log('Inside');
     		if (rows.length === 0) {
     			res.send('No data');
     		} else {
+    			console.log(rows);
     			res.send(rows);
     		}
     	}
-    });*/
+    });
 });
 
 router.post('/updateAverage', function(req, response) {
