@@ -194,6 +194,21 @@ router.post('/updateAverage', function(req, response) {
     });
 });
 
+router.get('/getMovieByMajor/:major', function(req, res){
+	var major = req.params.major;
+	con.query('SELECT * FROM personmovierate WHERE major = ? ORDER BY rating DESC ', major, function(err, rows){
+		if (err) {
+			console.log(err);
+		} else {
+			if (rows.length === 0) {
+				res.send('No current data related to your major');
+			} else {
+				res.send(rows);
+			}
+		}
+	});
+});
+
 /**
  * A route to change the profile that is password, Major and Bio
  *
