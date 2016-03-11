@@ -213,10 +213,10 @@ router.get('/getMovieByMajor/:major', function(req, res){
  * A route to change the profile that is password, Major and Bio
  *
  **/
-router.post('/editProfile/:username/:password', function(req, res){
+router.post('/editProfile/:username/', function(req, res){
   var username = req.params.username;
-  var password = req.params.password;
-  con.query('UPDATE users SET password = ?, Major = ?, Bio = ? Where username = ?', [password, req.body.major, req.body.bio, username], function (err, result) {
+  //var password = req.params.password;
+  con.query('UPDATE users SET Major = ? Where username = ?', [req.body.major, username], function (err, result) {
         if (err){
           console.log(err); 
           throw err;
