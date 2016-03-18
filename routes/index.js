@@ -110,7 +110,7 @@ router.get('/getUserIds', function(req, response){
 		} else {
 			res.send(rows);
 		}
-	}
+	});
 });
 
 router.post('/addRating', function(req, response) {
