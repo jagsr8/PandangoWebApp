@@ -63,7 +63,8 @@ router.get('/getLoginStatus/:username/:password', function(req, res){
       			if (err) {
       				console.print(err);
       			} else {
-      				res.send(major);
+
+      				res.send(rows);
       			}
       		});
       	} else {
