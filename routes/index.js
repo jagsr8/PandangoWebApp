@@ -220,6 +220,30 @@ router.get('/getMovieByMajor/:major', function(req, res){
 	});
 });
 
+router.post('/changeUserStatusBan/:username', function(req, res){
+	var username = req.params.username;
+	var ban = 'ban';
+	con.query('UPDATE users SET userStatus = ? WHERE username = ?', [ban, username], function(err, result){
+		if (err) {
+			console.log(err);
+		} else {
+			res.send('ban successful');
+		}
+	});
+});
+
+router.post('/changeUserStatusUnlock/:username', function(req, res){
+	var username = req.params.username;
+	var ban = 'active';
+	con.query('UPDATE users SET userStatus = ? WHERE username = ?', [ban, username], function(err, result){
+		if (err) {
+			console.log(err);
+		} else {
+			res.send('unlock successful');
+		}
+	});
+});
+
 /**
  * A route to change the profile that is password, Major and Bio
  *
