@@ -103,6 +103,16 @@ router.post('/userRegistration', function(req, response){
   });
 });
 
+router.get('/getUserIds', function(req, response){
+	con.query('SELECT * FROM users', function(err, rows){
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(rows);
+		}
+	}
+});
+
 router.post('/addRating', function(req, response) {
     var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating, major: req.body.major};
    
