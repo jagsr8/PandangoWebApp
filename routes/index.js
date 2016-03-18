@@ -108,7 +108,7 @@ router.get('/getUserIds', function(req, response){
 		if (err) {
 			console.log(err);
 		} else {
-			res.send(rows);
+			response.send(rows);
 		}
 	});
 });
