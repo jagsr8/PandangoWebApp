@@ -57,7 +57,7 @@ router.get('/getLoginStatus/:username/:password', function(req, res){
       if (rows.length === 0) {
       	res.send('0');
       } else {
-      	if (rows[0].password === password) {
+      	if (rows[0].password === password && rows[0].userStatus !== 'ban') {
       		var major = rows[0].major;
       		con.query('UPDATE users SET loginStatus = ? Where username = ?', [1, username], function(err, result) {
       			if (err) {
