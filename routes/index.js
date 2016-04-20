@@ -67,12 +67,14 @@ router.get('/getLoginStatus/:username/:password', function(req, res){
       if (rows.length === 0) {
       	res.send('0');
       } else {
-      	if (rows[0].password === password) {
+      	if (rows[0].password === password && rows[0].userStatus !== 'ban') {
+      		var major = rows[0].major;
       		con.query('UPDATE users SET loginStatus = ? Where username = ?', [1, username], function(err, result) {
       			if (err) {
       				console.print(err);
       			} else {
-      				res.send(username);
+
+      				res.send(rows);
       			}
       		});
       	} else {
@@ -94,7 +96,7 @@ router.post('/userRegistration', function(req, response){
            console.log(err); 
       } else {
         if (rows.length === 0) {
-          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, major: '', bio: ''};
+          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, major: '', bio: '', userType: 'user', userStatus: 'active'};
           con.query('INSERT INTO users SET ?', newUser, function(err, res){
             if (err) {
               console.log(err);
@@ -111,26 +113,155 @@ router.post('/userRegistration', function(req, response){
   });
 });
 
+router.get('/getUserIds', function(req, response){
+	con.query('SELECT * FROM users', function(err, rows){
+		if (err) {
+			console.log(err);
+		} else {
+			response.send(rows);
+		}
+	});
+});
+
 router.post('/addRating', function(req, response) {
-    var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating};
-    con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
-        if (err) {
-          console.log(err);
-        } else {
-          response.send('Movie Rating added');
-        }
+    var newRating = {username: req.body.username, movie_name: req.body.moviename, rating: req.body.rating, major: req.body.major};
+   
+    var sql = "SELECT * FROM personmovierate WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
+    
+    con.query(sql, function(err, rows){
+    	if (err) {
+    		
+    		console.log(err);
+    	} else {
+    		
+    		if (rows.length === 0) {
+    			con.query('INSERT INTO personmovierate SET ?', newRating, function(err, res){
+			        if (err) {
+			          console.log(err);
+			        } else {
+			     	  response.send('Movie rating added!');
+			        }
+			    });
+    		} else {
+    			var sql2 = "UPDATE personmovierate SET rating = '" + newRating.rating + "' WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
+    			con.query(sql2, function(err, res){
+    				if (err) {
+			          console.log(err);
+			        } else {
+			          response.send('Movie rating updated!');
+			        }
+    			});
+    		}
+    	}
     });
 });
 
+router.post('/getCurrRating', function(req, res){
+	var movieName = req.body.moviename;
+	
+	var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+	console.log(sql);
+	con.query(sql, function(err, rows){
+    	if (err) {
+    		console.log(err);
+    	} else {
+    		console.log('Inside');
+    		if (rows.length === 0) {
+    			res.send('No data');
+    		} else {
+    			console.log(rows);
+    			res.send(rows);
+    		}
+    	}
+    });
+});
+
+router.post('/updateAverage', function(req, response) {
+	var movieName = req.body.moviename;
+	var rat = req.body.rating;
+	var currNumOfRates = req.body.numOfRates;
+    var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+    console.log(sql);
+    con.query(sql, function(err, rows){
+    	if (err) {
+    		console.log(err);
+    	} else {
+    		if (rows.length === 0) {
+    			var newMovieAverage = {movie_name: movieName, rating: rat, num_of_ratings: 1};
+    			con.query('INSERT INTO movieaveragerating SET ?', newMovieAverage, function(err, res){
+			        if (err) {
+			          console.log(err);
+			        } else {
+			     	  response.send('Movie rating added!');
+			        }
+			    });
+    		} else {
+    			var sql2 = "UPDATE movieaveragerating SET rating = '" 
+    						+ rat 
+    						+ "', num_of_ratings = '" 
+    						+ currNumOfRates 
+    						+ "' WHERE movie_name = '" 
+    						+ movieName 
+    						+ "'";
+    			con.query(sql2, function(err, res){
+    				if (err) {
+			          console.log(err);
+			        } else {
+			          response.send('Movie rating updated!');
+			        }
+    			});
+    		}
+    	}
+    });
+});
+
+router.get('/getMovieByMajor/:major', function(req, res){
+	var major = req.params.major;
+	con.query('SELECT * FROM personmovierate WHERE major = ? ORDER BY rating DESC ', major, function(err, rows){
+		if (err) {
+			console.log(err);
+		} else {
+			if (rows.length === 0) {
+				res.send('No current data related to your major');
+			} else {
+				res.send(rows);
+			}
+		}
+	});
+});
+
+router.post('/changeUserStatusBan/:username', function(req, res){
+	var username = req.params.username;
+	var ban = 'ban';
+	con.query('UPDATE users SET userStatus = ? WHERE username = ?', [ban, username], function(err, result){
+		if (err) {
+			console.log(err);
+		} else {
+			res.send('ban successful');
+		}
+	});
+});
+
+router.post('/changeUserStatusUnlock/:username', function(req, res){
+	var username = req.params.username;
+	var ban = 'active';
+	con.query('UPDATE users SET userStatus = ? WHERE username = ?', [ban, username], function(err, result){
+		if (err) {
+			console.log(err);
+		} else {
+			res.send('unlock successful');
+		}
+	});
+});
 
 /**
  * A route to change the profile that is password, Major and Bio
  *
  **/
-router.post('/editProfile/:username/:password', function(req, res){
+router.post('/editProfile/:username/', function(req, res){
   var username = req.params.username;
-  var password = req.params.password;
-  con.query('UPDATE users SET password = ?, Major = ?, Bio = ? Where username = ?', [password, req.body.major, req.body.bio, username], function (err, result) {
+  //var password = req.params.password;
+  con.query('UPDATE users SET Major = ? Where username = ?', [req.body.major, username], function (err, result) {
         if (err){
           console.log(err); 
           throw err;
@@ -143,7 +274,6 @@ router.post('/editProfile/:username/:password', function(req, res){
 });
 
 router.get('/showProfile/:un', function(req, res) {
-  console.log('Hey!');
   var username = req.params.un;
   con.query('SELECT * FROM users WHERE username = ?', username, function(err, rows){
     if (err) {
