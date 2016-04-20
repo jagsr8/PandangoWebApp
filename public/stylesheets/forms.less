@@ -8,7 +8,32 @@ form {
 	text-align: center;
 
 	p {
+		color: fade(@secondary, 70%);
 
+		&.form-header {
+			margin: 0 auto 30px auto;
+			width: 300px;
+		}
+
+		&.form-detail {
+			margin: 25px auto 5px auto;
+		}
+
+		&.form-error {
+			color: @highlight;
+			display: none;
+			margin: 25px auto 5px auto;
+		}
+
+		&.passport-error {
+			color: @highlight;
+		}
+
+		&.form-link {
+			color: @highlight;
+			margin-top: 0px;
+			font-style: oblique;
+		}
 	}
 
 	input {
@@ -17,23 +42,29 @@ form {
 		border: 3px solid fade(@secondary, 30%);
 		width: 300px;
 		height: 50px;
-		margin: 0 auto;
-		margin-bottom: 30px;
+		margin: 0 auto 15px auto;
 		padding-left: 20px;
 		font-size: 18px;
-		// font-weight: lighter;
 		color: fade(@secondary, 30%);
 		background: fade(@base, 60%);
+
+		&:focus {
+			border-radius: 10px;
+			border-color: fade(@secondary, 70%);
+			color: fade(@secondary, 70%);
+			outline: none;
+		}
+
+		&:last-of-type {
+			margin-bottom: 30px;
+		}
+
+		&.input-error {
+			border-color: @highlight;
+		}
 	}
 
-	input:focus {
-		border-radius: 10px;
-		border-color: fade(@secondary, 70%);
-		color: fade(@secondary, 70%);
-		outline: none;
-	}
-
-	span.button {
+	button[type='submit'], input[type='submit'], span.submit {
 		display: block;
 		border-radius: 10px;
 		border: none;
@@ -41,11 +72,26 @@ form {
 		height: 50px;
 		line-height: 50px;
 		vertical-align: middle;
-		margin: 0 auto;
-		margin-bottom: 30px;
+		margin: 0 auto 15px auto;
 		font-size: 18px;
-		color: @secondary;
-		background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%), @highlight;
 		cursor: pointer;
+		.button_style_one;
+		// .button_style_two;
+
+		&.processing {
+			opacity: 0.7;
+			cursor: default;
+		}
 	}
+}
+
+.button_style_one {
+	color: @secondary;
+	background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%), @highlight;
+}
+
+.button_style_two {
+	color: @secondary;
+	background: @highlight;
+	box-shadow: 0px 6px 0px darken(@highlight, 15%);
 }

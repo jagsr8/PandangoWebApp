@@ -1,7 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var mysql = require("mysql");
+var passport = require('passport');
+var flash = require('connect-flash');
+
+router.use(session({
+    secret            : 'pandangogo',
+    resave            : false,
+    saveUninitialized : false
+})); // session secret
+router.use(passport.initialize());
+router.use(passport.session()); // persistent login sessions
+router.use(flash()); // use connect-flash for flash messages stored in session
 
 //var lastRegisteredID = 2;
 
@@ -28,6 +40,9 @@ con.connect(function(err){
 });
 
 
+require('../config/passport')(passport, con);
+
+
 /**
  *Code to Ping the database and keep connection awake
  *
@@ -35,11 +50,6 @@ con.connect(function(err){
 setInterval(function () {
     con.query('SELECT 1');
 }, 5000);
-
-
-router.get('/', function(req, res) {
-  res.render('splash')
-});
 
 
 /**
@@ -174,6 +184,59 @@ router.get('/dispRecentRated/:username', function(req, response){
           }
       });
 });
+
+
+//////////////////////////
+///  WEB API REQUESTS  ///
+////////////////////////// 
+
+router.post('/register', passport.authenticate('local-register', {
+    successRedirect : '/home',
+    failureRedirect : '/#login',
+    failureFlash    : true
+}));
+
+router.post('/login', passport.authenticate('local-signin', {
+    successRedirect : '/home',
+    failureRedirect : '/#login',
+    failureFlash    : true
+}));
+
+router.get('/', isLoggedOut, function(req, res) {
+    res.render('splash', {
+        signinError   : req.flash('signinError'),
+        registerError : req.flash('registerError')
+    });
+})
+
+router.get('/home', isLoggedIn, function(req, res) {
+    res.render('home', {
+        user: req.user
+    });
+});
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the splash page
+    res.redirect('/');
+}
+
+// route middleware to make sure a user is logged out
+function isLoggedOut(req, res, next) {
+
+    // if user is authenticated in the session, redirect to home page 
+    if (req.isAuthenticated())
+        res.redirect('/home');
+
+    // if they aren't, carry on
+    return next();
+}
+
 
 /*con.end(function(err) {
   // The connection is terminated gracefully
