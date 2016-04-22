@@ -40,10 +40,6 @@ module.exports = function(passport, con) {
             var usernamePatt = /^[a-zA-Z0-9_-]{4,10}$/;
             var passwordPatt = /^[a-zA-Z0-9]{6,16}$/;
 
-            console.log(req.body);
-            console.log(username);
-            console.log(password);
-
             // Begin validation
             if (req.body.first_name == "") {
                 return done(null, false, req.flash('registerError','Please enter a valid first name.'));
@@ -71,7 +67,9 @@ module.exports = function(passport, con) {
                                             password    : req.body.password,
                                             loginStatus : 0,
                                             major       : '',
-                                            bio         : ''
+                                            bio         : '',
+                                            userType    : 'user',
+                                            userStatus  : 'active'
                                         };
                                         con.query('INSERT INTO users SET ?', newUser, function(err, res){
                                             if (err) {
@@ -101,9 +99,6 @@ module.exports = function(passport, con) {
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
     function(req, username, password, done) {
-        console.log("UN: " + req.body.username);
-        console.log("PW: " + req.body.password);
-        
         if (req.body.username == "") {
             return done(null, false, req.flash('signinError','Please enter a valid username.'));
         } else {
@@ -111,7 +106,6 @@ module.exports = function(passport, con) {
                 return done(null, false, req.flash('signinError','Please enter a valid password.'));
             } else {
                 con.query('SELECT * FROM users WHERE username = ? LIMIT 1', username, function(err, user){
-                    console.log(user);
                     if (err) {
                         return done(err);
                     } else if (!user[0]) {

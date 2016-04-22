@@ -332,17 +332,53 @@ router.post('/login', passport.authenticate('local-signin', {
     failureFlash    : true
 }));
 
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 router.get('/', isLoggedOut, function(req, res) {
     res.render('splash', {
         signinError   : req.flash('signinError'),
         registerError : req.flash('registerError')
     });
-})
+});
 
 router.get('/home', isLoggedIn, function(req, res) {
     res.render('home', {
-        user: req.user
+        user : req.user
     });
+});
+
+router.get('/profile', isLoggedIn, function(req, res) {
+    res.render('profile', {
+        user : req.user
+    });
+});
+
+router.post('/edit_profile', function(req, res) {
+    con.query('UPDATE users SET name = ?, username = ?, major = ?, bio = ? WHERE username = ?', [req.body.name, req.body.username, req.body.major, req.body.bio, req.body.username], function (err, result) {
+        if (err){
+            res.send(err);
+        } else {
+            res.end();
+        }
+    });
+});
+
+router.get('/settings', isLoggedIn, function(req, res) {
+    res.redirect('/home');
+    // res.render('settings', {
+    //     user : req.user
+    // });
+});
+
+router.get('/random', isLoggedIn, function(req, res) {
+    res.redirect('/home');
+    // res.render('movie_detail', {
+    //     user  : req.user
+    //     movie : 
+    // });
 });
 
 // route middleware to make sure a user is logged in

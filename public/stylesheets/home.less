@@ -1,0 +1,59 @@
+@import "main.less";
+
+section#movie_search {
+	padding-top: 50px;
+	width: 65%;
+	min-width: 800px;
+	margin: 0 auto;
+	// background: @base;
+
+	form#movie_search_form {
+		height: 80px;
+
+		* {
+			display: inline-block;
+			// border-color: fade(@highlight, 70%);
+		}
+		select {
+			// margin-right: 5px;
+			background: fade(@secondary, 2%);
+		}
+		input[type="text"] {
+			width: 75%;
+			background: fade(@secondary, 2%);
+		}
+		a {
+			vertical-align: middle;
+			margin-left: 20px;
+
+			img {
+				height: 50px;
+			}
+		}
+		span.submit {
+			display: inline-block;
+			width: auto;
+			padding: 0 20px 0 20px;
+			margin: 0px;
+			background: fade(@base, 10%);
+		}
+	}
+	div#search_results {
+		height: 200px;
+
+		div#result_filters {
+			width: 150px;
+			height: 100%;
+			float: left;
+			// background: white;
+		}
+	}
+}
+
+div#recently_rated {
+
+}
+
+div#top_rated {
+
+}

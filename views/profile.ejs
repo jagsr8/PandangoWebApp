@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+    	<title>Pandango | <%= user.name.split(' ')[0] %></title>
+    	<link rel='stylesheet' href='/stylesheets/forms.css' />
+    	<link rel='stylesheet' href='/stylesheets/profile.css' />
+  	</head>
+  	<body>
+
+		<header>
+			<span><a href="/home">Pandango</a></span>
+			<nav>
+				<ul>
+					<!-- <li><a href="/charts">Charts</a></li> -->
+					<li><a href="/profile"><%= user.name.split(' ')[0] %></a></li>
+					<li><a href="/settings">Settings</a></li>
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<section id="profile_about">
+			<form id="edit_profile">
+				<h2>Profile Information</h2>
+				<span id="edit_button" class="button-red">Edit</span>
+				<div id="edit_names" class="profile-field">
+					<label class="profile-label">Name: </label>
+					<input type="text" class="profile-data" name="name" value="<%= user.name %>" disabled>
+					<!-- <span class="button-red" style="z-index: 99999999999;"><img src="https://upload.wikimedia.org/wikipedia/commons/2/23/Edit-icon-grey.png" /></span> -->
+				</div>
+				<div id="edit_username" class="profile-field">
+					<label class="profile-label">Username: </label>
+					<input type="text" class="profile-data" name="username" value="<%= user.username %>" disabled>
+				</div>
+				<div id="edit_major" class="profile-field">
+					<label class="profile-label">Major: </label>
+					<input type="text" class="profile-data" name="major" value="<%= user.major %>" disabled>
+				</div>
+				<div id="edit_bio" class="profile-field">
+					<label class="profile-label">Bio: </label>
+					<input type="textarea" class="profile-data" name="bio" value="<%= user.bio %>" disabled>
+				</div>
+				<span id="submit_profile_changes" class="submit button-red" style="display: none;">Submit Changes</span>
+			</form>
+		</section>
+
+		<section id="profile_favorites">
+			
+		</section>
+
+		<section id="profile_friends">
+			
+		</section>
+
+		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="/js/api.js"></script>
+		<script src="/js/profile.js"></script>
+  	</body>
+</html>

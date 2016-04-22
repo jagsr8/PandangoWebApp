@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Pandango | Movie Ratings & Recommendations</title>
-    <link rel='stylesheet' href='/stylesheets/splash.css' />
     <link rel='stylesheet' href='/stylesheets/forms.css' />
+    <link rel='stylesheet' href='/stylesheets/splash.css' />
   </head>
   <body>
 	<section id="jumbotron">
@@ -38,7 +38,7 @@
 				
 				<input type="password" name="password" value="" placeholder="Password">
 				
-				<button class="submit" type="submit" onclick="process_sign_in()">Sign In</button>
+				<button class="submit button-red" type="submit" onclick="process_sign_in()">Sign In</button>
 				<p class="form-link" id="forgot_password">Forgot username or password?</p>
 			</form>
 			<form id="register_form" action="/register" method="POST" style="display: none;">
@@ -65,7 +65,7 @@
 				<p class="form-error" id="register_error_pass_confirm">Password does not match.</p>
 				<input type="password" name="password_confirm" value="" placeholder="Confirm Password">
 
-				<button class="submit" type="submit" onclick="process_register()">Register</span>
+				<button class="submit button-red" type="submit" onclick="process_register()">Register</span>
 
 			</form>
 		</div>
