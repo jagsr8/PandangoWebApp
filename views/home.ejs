@@ -1,64 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Pandango | Home</title>
-    <link rel='stylesheet' href='/stylesheets/main.css' />
-    <link rel='stylesheet' href='/stylesheets/forms.css' />
-  </head>
-  <body>
-	<section id="jumbotron">
-	    <div id="cliffhanger">
-	    	<p>Welcome <%= user.name %>,</p>
-	    </div>
-	    <div id="carousel_container">
-	    	<div id="carousel_item" style="background-image: radial-gradient(rgba(0,0,0,0) 30%, rgba(0,0,0,1) 70%), url('/images/empty_theater.jpg');">
-		    	<div id="carousel_text">
-			    	<h3>Rate your favorite movies</h3>
-		    		<p>With our intuitive interface and 5-star rating system, you will be able to rate like never before.</p>
-		    	</div>
-		    </div>
-	    </div>
-	    <a href="#login"><img src="http://nlitenmusic.neocities.org/nliten-music/images/white-arrow-down.png" /></a>
-	</section>
-	<section id="login">
-		<div id="login_container">
-			<ul id="login_tabs">
-				<li class="tabs_active">Sign In</li>
-				<li>Register</li>
-			</ul>
-			<form id="sign_in_form">
-				<p class="form-header">Please enter the following information to login to your account.</p>
-				<input type="text" name="username" value="" placeholder="Username">
-				<input type="password" name="password" value="" placeholder="Password">
-				<span class="submit" onclick="process_sign_in()">Sign In</span>
+  	<head>
+    	<title>Pandango | Home</title>
+    	<link rel='stylesheet' href='/stylesheets/forms.css' />
+    	<link rel='stylesheet' href='/stylesheets/home.css' />
+  	</head>
+  	<body>
+
+		<header>
+			<span><a href="/home">Pandango</a></span>
+			<nav>
+				<ul>
+					<!-- <li><a href="/charts">Charts</a></li> -->
+					<li><a href="/profile"><%= user.name.split(' ')[0] %></a></li>
+					<li><a href="/settings">Settings</a></li>
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<section id="movie_search">
+			<form id="movie_search_form">
+				<select id="search_type">
+					<option value="movies">Movies<!--  &#x25BE --></option>
+					<option value="actors">Actors</option>
+					<option value="year">Year</option>
+				</select>
+				<input id="search_bar" type="text" placeholder="Search for movies..."></input>
+				<a href="/random"><img src="https://etyman.files.wordpress.com/2012/09/dice.png" /></a>
+				<!-- <span class="button-red"><img src="https://etyman.files.wordpress.com/2012/09/dice.png"></img></span> -->
 			</form>
-			<form id="register_form" style="display: none;">
-				
-				<p class="form-header">Please provide the following information to create an account.</p>
+			<div id="search_results">
+				<!-- dhjgnk -->
+				<div id="result_filters">
+					
+				</div>
+			</div>
+		</section>
 
-				<p class="form-error" id="register_error_fname">Please enter a valid first name.</p>
-				<input type="text" name="first_name" value="" placeholder="First Name">
+		<section></section>
 
-				<p class="form-error" id="register_error_lname">Please enter a valid last name.</p>
-				<input type="text" name="last_name" value="" placeholder="Last Name">
-
-				<p class="form-error" id="register_error_uname">Please enter a valid username.</p>
-				<p class="form-error" id="register_error_uname_avl">Username has already been taken.</p>
-				<input type="text" name="username" value="" placeholder="Username">
-
-				<p class="form-error" id="register_error_pass">Please enter a valid password.</p>
-				<input type="password" name="password" value="" placeholder="Password">
-
-				<p class="form-error" id="register_error_pass_confirm">Password does not match.</p>
-				<input type="password" name="password_confirm" value="" placeholder="Confirm Password">
-
-				<span class="submit" onclick="process_register()">Register</span>
-
-			</form>
-		</div>
-	</section>
-	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
-	<script src="/js/api.js"></script>
-	<script src="/js/splash.js"></script>
-  </body>
+		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="/js/api.js"></script>
+		<script src="/js/home.js"></script>
+  	</body>
 </html>

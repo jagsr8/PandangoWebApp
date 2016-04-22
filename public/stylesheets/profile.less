@@ -1,0 +1,108 @@
+@import "main.less";
+
+section#profile_about {
+	padding-top: 50px;
+	width: 50%;
+	min-width: 400px;
+	margin: 0 auto;
+	padding: 0 auto;
+	font-size: 18px;
+	float: left;
+
+	> * {
+		width: 100%;
+	}
+
+	form#edit_profile {
+		text-align: left;
+		width: 400px;
+		margin: 0 auto;
+		color: @secondary;
+
+		h2 {
+			// margin-bottom: 40px;
+			display: inline-block;
+		}
+
+		span#edit_button {
+			display: inline-block;
+			height: 40px;
+			line-height: 40px;
+			vertical-align: middle;
+			margin-left: 59px;
+		}
+
+		div.profile-field {
+			overflow: auto;
+			margin: 30px 0 30px 0;
+			vertical-align: middle;
+			line-height: 50px;
+			overflow-y: hidden;
+
+			label.profile-label {
+				float: left;
+				width: 100px;
+				font-weight: bold;
+			}
+
+			input.profile-data {
+				text-align: left;
+				vertical-align: middle;
+				line-height: 50px;
+				margin: 0 0 0 30px;
+				display: inline-block;
+				width: 270px;
+				border-radius: 10px;
+				height: 50px;
+				padding: 0 20px 0 20px;
+				font-size: 18px;
+				color: fade(@secondary, 70%);
+				background: fade(@secondary, 5%);
+				border: 3px solid fade(@secondary, 30%);
+				overflow: scroll;
+			}
+
+			input[type="textarea"] {
+				height: 120px;
+				overflow-y: scroll;
+				vertical-align: top;
+			}
+
+			input[disabled] {
+				border: 3px solid fade(@secondary, 10%);
+				background: fade(@secondary, 2%);
+			}
+
+			span.submit {
+				width: 25px;
+				height: 25px;
+				text-align: center;
+				display: inline-block;
+				margin: 0 0 0 0px;
+				line-height: 20px;
+				border-radius: 5px;
+
+				img {
+					height: 15px;
+					vertical-align: middle;
+				}
+			}
+		}
+
+		span.submit {
+			float: right;
+			display: inline-block;
+			width: 270px;
+			padding: 0 20px 0 20px;
+			text-align: center;
+		}
+	}
+}
+
+section#profile_favorites {
+
+}
+
+section#profile_friends {
+
+}
