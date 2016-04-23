@@ -12,14 +12,14 @@
 			<nav>
 				<ul>
 					<!-- <li><a href="/charts">Charts</a></li> -->
-					<li><a href="/profile"><%= user.name.split(' ')[0] %></a></li>
+					<li><a href="/profile" class="active-page"><%= user.name.split(' ')[0] %></a></li>
 					<li><a href="/settings">Settings</a></li>
 					<li><a href="/logout">Logout</a></li>
 				</ul>
 			</nav>
 		</header>
 
-		<section id="profile_about">
+		<section id="profile_about" class="container">
 			<form id="edit_profile">
 				<h2>Profile Information</h2>
 				<span id="edit_button" class="button-red">Edit</span>
@@ -44,12 +44,19 @@
 			</form>
 		</section>
 
-		<section id="profile_favorites">
-			
+		<section id="profile_favorites" class="container">
+			<div>
+				<h2>Favorite Movies</h2>
+			</div>
 		</section>
 
-		<section id="profile_friends">
-			
+		<section id="profile_friends" class="container">
+			<div>
+				<h2>Friends</h2>
+				<div id="friends_container" class="list-container">
+					<div class="friend-data"><%= user.name %></div>
+				</div>
+			</div>
 		</section>
 
 		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
