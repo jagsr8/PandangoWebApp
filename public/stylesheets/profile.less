@@ -1,28 +1,18 @@
 @import "main.less";
 
-section#profile_about {
-	padding-top: 50px;
+section {
 	width: 50%;
 	min-width: 400px;
-	margin: 0 auto;
-	padding: 0 auto;
-	font-size: 18px;
-	float: left;
 
 	> * {
-		width: 100%;
+		width: 400px;
 	}
+}
+
+section#profile_about {
+	float: left;
 
 	form#edit_profile {
-		text-align: left;
-		width: 400px;
-		margin: 0 auto;
-		color: @secondary;
-
-		h2 {
-			// margin-bottom: 40px;
-			display: inline-block;
-		}
 
 		span#edit_button {
 			display: inline-block;
@@ -100,9 +90,24 @@ section#profile_about {
 }
 
 section#profile_favorites {
-
+	float: right;
 }
 
 section#profile_friends {
+	float: right;
 
+
+}
+
+.list-container {
+	text-align: left;
+	width: 400px;
+	height: 268px;
+	border-radius: 10px;
+	padding: 10px;
+	font-size: 18px;
+	color: fade(@secondary, 70%);
+	border: 3px solid fade(@secondary, 10%);
+	background: fade(@secondary, 2%);
+	overflow-y: scroll;
 }
