@@ -107,7 +107,7 @@ router.post('/userRegistration', function(req, response){
 
           });
         } else {
-          response.send('User already added');
+          response.send(rows);
         }
       }
   });
