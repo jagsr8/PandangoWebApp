@@ -1,0 +1,118 @@
+@import "main.less";
+
+section#movie_search {
+	padding-top: 50px;
+	margin: 0 auto;
+	min-width: 500px;
+	// background: @base;
+
+	form#movie_search_form {
+		height: 80px;
+
+		* {
+			display: inline-block;
+			// border-color: fade(@highlight, 70%);
+		}
+		select {
+			// margin-right: 5px;
+			background: fade(@secondary, 2%);
+		}
+		input[type="text"] {
+			width: 55%;
+			background: fade(@secondary, 2%);
+		}
+		a {
+			vertical-align: middle;
+			margin-left: 20px;
+
+			img {
+				height: 50px;
+			}
+		}
+		span.submit {
+			display: inline-block;
+			width: auto;
+			padding: 0 20px 0 20px;
+			margin: 0px;
+			background: fade(@base, 10%);
+		}
+	}
+	div#search_results {
+		height: 200px;
+
+		div#result_filters {
+			width: 150px;
+			height: 100%;
+			float: left;
+			// background: white;
+		}
+	}
+}
+
+section#settings {
+	width: 100%;
+	height: 100%;
+	display: table;
+	// background: linear-gradient(to right, @base 20%, rgba(0,0,0,0) 100%), url('http://hdwallpaperbackgrounds.net/wp-content/uploads/2015/09/The-Legend-of-Hercules-HD.jpg');
+	background-size: cover;
+
+	div#settings_container {
+
+		ul#settings_tabs {
+
+			li {
+				width: 15%;
+				max-width: 200px;
+				min-width: 150px;
+				margin: 0 5px;
+			}
+		}
+		form#settings_dropdown_form {
+			display: none;
+		}
+		#user_search {
+			width: 400px;
+			margin-bottom: 10px;
+		}
+		#user_list {
+			width: 400px;
+			height: 500px;
+			margin: 0 auto;
+			border-radius: 10px;
+			border: 3px solid fade(@secondary, 30%);
+			overflow-y: scroll;
+
+			div.user-block {
+				overflow: auto;
+				padding: 20px;
+				border-bottom: 2px solid fade(@secondary, 10%);
+
+				span.user-block-name {
+					float: left;
+					vertical-align: middle;
+					line-height: 25px;
+				}
+				span.button-red {
+					float: right;
+					height: 25px;
+					line-height: 25px;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 720px) {
+	section#settings {
+		div#settings_container {
+			ul#settings_tabs {
+				display: none;
+				li {
+				}
+			}
+			form#settings_dropdown_form {
+				display: block;
+			}
+		}
+	}
+}

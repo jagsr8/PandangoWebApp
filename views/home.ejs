@@ -6,7 +6,7 @@
     	<link rel='stylesheet' href='/stylesheets/tabs.css' />
     	<link rel='stylesheet' href='/stylesheets/home.css' />
   	</head>
-  	<body>
+  	<body onload="load_top_lists()">
 
 		<header>
 			<span><a href="/home">Pandango</a></span>
@@ -24,25 +24,69 @@
 			<form id="movie_search_form">
 				<select id="search_type">
 					<option value="movies">Movies<!--  &#x25BE --></option>
-					<option value="actors">Actors</option>
-					<option value="year">Year</option>
+					<option value="new releases">New Releases</option>
+					<option value="new DVDs">New DVDs</option>
 				</select>
 				<input id="search_bar" type="text" placeholder="Search for movies..."></input>
 				<a href="/random"><img src="https://etyman.files.wordpress.com/2012/09/dice.png" /></a>
-				<!-- <span class="button-red"><img src="https://etyman.files.wordpress.com/2012/09/dice.png"></img></span> -->
 			</form>
-			<div id="search_results">
-				<!-- dhjgnk -->
-				<div id="result_filters">
-					
-				</div>
-			</div>
+			<div id="search_results"></div>
 		</section>
 
-		<section></section>
+		<section id="top_charts">
+			<div id="top_rated">
+				<h2>Top Rated Movies</h2>
+				<div id="top_rated_results" class="result-container"></div>
+			</div>
+
+			<div id="movies_by_major">
+				<h2>Movies By Major</h2>
+				<form id="movies_by_major_form">
+					<select id="major_select">
+						<option value="movies">Select Major</option>
+						<option value="new releases">New Releases</option>
+						<option value="new DVDs">New DVDs</option>
+					</select>
+				</form>
+				<div id="movies_by_major_results" class="result-container"></div>
+			</div>
+		</section>
 
 		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
 		<script src="/js/api.js"></script>
 		<script src="/js/home.js"></script>
+		<script>
+			function load_top_lists() {
+				load_top_rated();
+				load_by_major();
+			}
+
+			function load_top_rated() {
+				content = "";
+				$.get('/get_all_ratings', function(data) {
+					data.sort(top_rated_comparator);
+					for (var i = 0; i < 10; i++) {
+						content += "<div>" + data[i].movie_name + "</div>";
+					}
+					$("div#top_rated_results").html(content);
+				})
+			}
+
+			function load_by_major() {
+				content = "";
+				$.get('/get_all_ratings', function(data) {
+					for (var i = 0; i < 10; i++) {
+						if (data[i].major == $("select#major_select").val()) {
+							content += "<div>" + data[i].movie_name + "</div>";
+						}
+					}
+					$("div#movies_by_major_results").html(content);
+				})
+			}
+
+			function top_rated_comparator(a,b) {
+				return (b.rating * b.num_of_ratings) - (a.rating * a.num_of_ratings);
+			}
+		</script>
   	</body>
 </html>

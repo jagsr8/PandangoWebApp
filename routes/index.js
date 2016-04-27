@@ -350,6 +350,126 @@ router.get('/home', isLoggedIn, function(req, res) {
     });
 });
 
+router.get('/movie/:id', isLoggedIn, function(req, res) {
+    res.render('movie_detail', {
+        user     : req.user,
+        movie_id : req.params.id
+    });
+});
+
+router.get('/get_rating', function(req, res){
+    var movieName = req.query.moviename;
+    
+    var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+    console.log(sql);
+    con.query(sql, function(err, rows){
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Inside');
+            if (rows.length === 0) {
+                res.end();
+            } else {
+                console.log(rows);
+                res.send(rows[0]);
+            }
+        }
+    });
+});
+
+router.get('/get_all_ratings', function(req, res){
+    var movieName = req.query.moviename;
+    
+    var sql = "SELECT * FROM movieaveragerating";
+    console.log(sql);
+    con.query(sql, function(err, rows){
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Inside');
+            if (rows.length === 0) {
+                res.end();
+            } else {
+                console.log(rows);
+                res.send(rows);
+            }
+        }
+    });
+});
+
+router.post('/submit_rating', function(req, res) {
+    var newRating = {username: req.user.username, movie_name: req.body.moviename, rating: req.query.rating, major: req.user.major};
+    console.log("Submit: " + newRating.rating);
+    var sql = "SELECT * FROM personmovierate WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
+    
+    con.query(sql, function(err, rows){
+        if (err) {
+            
+            console.log(err);
+        } else {
+            
+            if (rows.length === 0) {
+                con.query('INSERT INTO personmovierate SET ?', newRating, function(err, result){
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.end();
+                    }
+                });
+            } else {
+                var sql2 = "UPDATE personmovierate SET rating = '" + newRating.rating + "' WHERE username = '" + newRating.username + "' AND movie_name = '" + newRating.movie_name + "'";
+                con.query(sql2, function(err, response){
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.end();
+                    }
+                });
+            }
+        }
+    });
+});
+
+router.post('/update_average', function(req, res) {
+    var movieName = req.body.moviename;
+    var rat = req.body.rating;
+    var currNumOfRates = req.body.numOfRates;
+    console.log("Update: " + rat);
+    var sql = "SELECT * FROM movieaveragerating WHERE movie_name = '" + movieName + "'";
+    console.log(sql);
+    con.query(sql, function(err, rows){
+        if (err) {
+            console.log(err);
+        } else {
+            if (rows.length === 0) {
+                var newMovieAverage = {movie_name: movieName, rating: rat, num_of_ratings: 1};
+                con.query('INSERT INTO movieaveragerating SET ?', newMovieAverage, function(err, response){
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.send('Movie rating added!');
+                    }
+                });
+            } else {
+                var sql2 = "UPDATE movieaveragerating SET rating = '" 
+                            + rat 
+                            + "', num_of_ratings = '" 
+                            + currNumOfRates 
+                            + "' WHERE movie_name = '" 
+                            + movieName 
+                            + "'";
+                con.query(sql2, function(err, response){
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.send('Movie rating updated!');
+                    }
+                });
+            }
+        }
+    });
+});
+
 router.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile', {
         user : req.user
@@ -367,10 +487,55 @@ router.post('/edit_profile', function(req, res) {
 });
 
 router.get('/settings', isLoggedIn, function(req, res) {
-    res.redirect('/home');
-    // res.render('settings', {
-    //     user : req.user
-    // });
+    res.render('settings', {
+        user : req.user
+    });
+});
+
+router.post('/change_password', function(req, res) {
+    con.query('SELECT password FROM users WHERE username = ? LIMIT 1', req.user.username, function (err, result) {
+        if (err){
+            res.send(err);
+        } else if (result == req.body.old_password && req.body.new_password == req.body.confirm_password) {
+            con.query('UPDATE users SET password = ? WHERE username = ?', [req.body.new_password, req.user.username], function (err, result) {
+                if (err){
+                    res.send(err);
+                } else {
+                    res.end();
+                }
+            });
+        }
+    });
+});
+
+router.get('/users', isAdmin, function(req, res) {
+    con.query('SELECT id, name, userStatus FROM users', function (err, result) {
+        if (err){
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+router.post('/ban_user', isAdmin, function(req, res) {
+    con.query('UPDATE users SET userStatus = "ban" WHERE id = ?', [req.body.id], function (err, result) {
+        if (err){
+            res.send(err);
+        } else {
+            res.end();
+        }
+    });
+});
+
+router.post('/unlock_user', isAdmin, function(req, res) {
+    con.query('UPDATE users SET userStatus = "active" WHERE id = ?', [req.body.id], function (err, result) {
+        if (err){
+            res.send(err);
+        } else {
+            res.end();
+        }
+    });
 });
 
 router.get('/random', isLoggedIn, function(req, res) {
@@ -379,6 +544,10 @@ router.get('/random', isLoggedIn, function(req, res) {
     //     user  : req.user
     //     movie : 
     // });
+});
+
+router.get('/:string', isLoggedIn, function(req, res) {
+    res.redirect('/home');
 });
 
 // route middleware to make sure a user is logged in
@@ -401,6 +570,17 @@ function isLoggedOut(req, res, next) {
 
     // if they aren't, carry on
     return next();
+}
+
+// route middleware to make sure a user is an admin
+function isAdmin(req, res, next) {
+
+    // if user is an admin, carry on 
+    if (req.user.userType == 'admin')
+        return next();
+
+    // if they aren't, return error
+    res.send("Not Admin.");
 }
 
 

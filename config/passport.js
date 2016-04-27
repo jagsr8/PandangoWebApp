@@ -114,6 +114,8 @@ module.exports = function(passport, con) {
                         console.log(user.password);
                         console.log(password);
                         return done(null, false, req.flash('signinError','Incorrect password.'));
+                    } else if (user[0].userStatus == 'ban') {
+                        return done(null, false, req.flash('signinError','User has been banned.'));
                     }
                     return done(null, user);
                 });
