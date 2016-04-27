@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+    	<title>Pandango | Movie Detail</title>
+    	<link rel='stylesheet' href='/stylesheets/forms.css' />
+    	<link rel='stylesheet' href='/stylesheets/movie_detail.css' />
+  	</head>
+  	<body onload="load_info()">
+
+		<header>
+			<span><a href="/home">Pandango</a></span>
+			<nav>
+				<ul>
+					<!-- <li><a href="/charts">Charts</a></li> -->
+					<li><a href="/profile"><%= user.name.split(' ')[0] %></a></li>
+					<li><a href="/settings">Settings</a></li>
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<div id="poster_bg"></div>
+
+		<div><h1 id="movie_name"></h1></div>
+
+		<section id="synopsis" class="container">
+			<div>
+				<h2>Synopsis</h2>
+				<p id="movie_synopsis"></p>
+			</div>
+		</section>
+
+		<section id="rating" class="container">
+			<div>
+				<h2>Rating</h2>
+				<span id="current_rating">--</span>
+				<form><input id="new_rating" type="text" placeholder="Rating" style="display: none;"></input>
+				<span id="rate_button" class="button-red">Rate</span></form>
+			</div>
+		</section>
+
+		<!-- <section id="profile_friends" class="container">
+			<div>
+				<h2>Friends</h2>
+				<div id="friends_container" class="list-container">
+					<div class="friend-data"><%= user.name %></div>
+				</div>
+			</div>
+		</section> -->
+
+		<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="/js/api.js"></script>
+		<script src="/js/movie_detail.js"></script>
+		<script>
+			function load_info() {
+				load_rotten_info();
+			}
+
+			function load_rotten_info() {
+				$.ajax({
+					url      : 'http://api.rottentomatoes.com/api/public/v1.0/movies/<%= movie_id %>.json?apikey=yedukp76ffytfuy24zsqk7f5',
+					dataType : "jsonp",
+					success  : load_rotten_data
+				});
+			}
+
+			function load_rotten_data(movie) {
+				console.log(movie);
+				$("div#poster_bg").css({
+					"background" : "url('" + movie.posters.profile + "')",
+					"background-size" : "contain"
+				});
+				$("h1#movie_name").text(movie.title);
+				$("p#movie_synopsis").text(movie.synopsis);
+
+				load_local_info();
+			}
+
+			function load_local_info() {
+				// $.ajax({
+				// 	url      : 'http://api.rottentomatoes.com/api/public/v1.0/movies/<%= movie_id %>.json?apikey=yedukp76ffytfuy24zsqk7f5',
+				// 	dataType : "jsonp",
+				// 	success  : load_rotten_data
+				// });
+				console.log($("h1#movie_name").text());
+				$.get('/get_rating', {
+					"moviename" : $("h1#movie_name").text()
+				}, load_local_data);
+			}
+
+			function load_local_data(rating) {
+				// console.log(movie);
+				// $("div#poster_bg").css({
+				// 	"background" : "url('" + movie.posters.profile + "')",
+				// 	"background-size" : "contain"
+				// });
+				console.log(rating)
+				$("span#current_rating").text(rating.rating);
+			}
+		</script>
+  	</body>
+</html>
