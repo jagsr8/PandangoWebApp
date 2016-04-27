@@ -96,7 +96,7 @@ router.post('/userRegistration', function(req, response){
            console.log(err); 
       } else {
         if (rows.length === 0) {
-          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, major: '', bio: '', userType: 'user', userStatus: 'active'};
+          var newUser = {name: req.body.name, username: req.body.username, password: req.body.password, loginStatus: 0, major: '', bio: '', userType: 'user', userStatus: 'active', email: req.body.email};
           con.query('INSERT INTO users SET ?', newUser, function(err, res){
             if (err) {
               console.log(err);
@@ -107,7 +107,7 @@ router.post('/userRegistration', function(req, response){
 
           });
         } else {
-          response.send('User already added');
+          response.send(rows);
         }
       }
   });
@@ -213,6 +213,21 @@ router.post('/updateAverage', function(req, response) {
     		}
     	}
     });
+});
+
+router.get('/returnEmail/:username', function(req, res){
+  var un = req.params.username;
+  con.query('SELECT * FROM users WHERE username = ?', un, function(err, rows){
+    if (err) {
+      console.log(err);
+    } else {
+      if (rows.length === 0) {
+        res.send('no current user');
+      } else {
+        res.send(rows);
+      }
+    }
+  });
 });
 
 router.get('/getMovieByMajor/:major', function(req, res){
